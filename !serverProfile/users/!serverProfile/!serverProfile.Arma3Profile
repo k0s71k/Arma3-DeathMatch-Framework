@@ -1,0 +1,17 @@
+singleVoice=0;
+maxSamplesPlayed=96;
+getTerrainGrid=50;
+setTerrainGrid=50;
+sceneComplexity=1000000;
+shadowZDistance=100;
+viewDistance=5000;
+preferredObjectViewDistance=3000;
+pipViewDistance=500;
+terrainGrid=50;
+volumeCD=10;
+volumeFX=10;
+volumeSpeech=10;
+volumeVoN=10;
+vonRecThreshold=0.029999999;
+volumeMapDucking=1;
+volumeUI=1;

@@ -1,0 +1,1 @@
+deleteVehicle _this

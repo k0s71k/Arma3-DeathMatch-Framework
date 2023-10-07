@@ -1,0 +1,346 @@
+author = "kst";
+onLoadName = "Island Project RDM V1.0";
+onLoadMission = "RandomDeathMatch Server";
+
+// Не показываем лобби, т.к один слот на сервере
+skipLobby = 1;
+
+saving = 0;
+disabledAI = 1;
+// Выключаем все возможные каналы (чат, карта, войс)
+disableChannels[]={
+	{0, true, true},
+	{1, true, true},
+	{2, true, true},
+	{3, true, true},
+	{4, true, true},
+	{5, true, true},
+	{6, true, true}
+};
+
+enableDebugConsole[] = {"ADMIN_PID1", "ADMIN_PID2"};
+disableRandomization[] = {"All"};
+showGroupIndicator = 0;
+forceRotorLibSimulation = 0;
+respawn = 3;
+respawndelay = 5;
+respawnDialog = 0;
+respawnButton = 0;
+respawnTemplates[] = {};
+UnsafeCVL = 1;
+
+class Header {
+	gameType = DM;
+	minPlayers = 1;
+	maxPlayers = 40;
+};
+
+// CBA Extended Eventhandlers
+class Extended_DisplayLoad_EventHandlers {
+	class RscDisplayDebriefing {
+		disableDebriefing = "(_this # 0) closeDisplay 2";
+	};
+};
+
+// Скрываем ненужные элементы интерфейса
+showHUD[] = {
+	1,	// Scripted HUD (same as showHUD command)
+	1,	// Vehicle + soldier info
+	0,	// Vehicle radar [HIDDEN]
+	0,	// Vehicle compass [HIDDEN]
+	0,	// Tank direction indicator
+	0,	// Commanding menu
+	0,	// Group Bar
+	1,	// HUD Weapon Cursors
+	1,	// panels
+	1,	// kills
+	1 	// showIcon3D
+};
+
+corpseManagerMode = 0;
+wreckManagerMode = 0;
+
+// RemoteExec config
+#define AllowFunction(NAME,TARGET) class NAME { \
+	allowedTargets = TARGET; \
+};
+
+class CfgRemoteExec {
+	// Разрешаем для вызова только прописанные функции;
+	class Functions {
+		mode = 1;
+		jip = 1;
+		
+		// На Сервер
+		AllowFunction(server_system_ban,2)
+		AllowFunction(server_spawn_vehicle,2)
+		// На клиент
+		AllowFunction(client_gui_hint,1)
+		AllowFunction(client_actions_jump,1)
+		AllowFunction(client_event_killed,1)
+		AllowFunction(client_vehicle_punishment,1)
+		// Обязательные бисовские функции
+		AllowFunction(BIS_fnc_curatorRespawn,0)
+		AllowFunction(BIS_fnc_effectKilledAirDestruction,0)
+		AllowFunction(BIS_fnc_effectKilledSecondaries,0)
+		AllowFunction(BIS_fnc_objectVar,0)
+		// Бисовская консоль
+		AllowFunction(BIS_fnc_debugConsoleExec,0)
+	};
+	// Тоже самое только для команд
+	class Commands {
+		mode = 1;
+		jip = 1;
+
+		AllowFunction(say3D,0)
+		AllowFunction(setFuel,0)
+		AllowFunction(setFace,0)
+		AllowFunction(setDamage,0)
+		AllowFunction(hideObjectGlobal,0)
+		AllowFunction(enableCopilot,0)
+	};
+};
+
+class CfgDisabledCommands {
+	class ALLVARIABLES {
+        class SYNTAX1 {
+            targets[] = {0, 0, 0};
+            args[] = {{}, {"NAMESPACE"}};
+        };
+    };
+    class ADDMPEVENTHANDLER {
+        class SYNTAX1 {
+            targets[] = {0, 0, 0};
+            args[] = {{"OBJECT"}, {"ARRAY"}};
+        };
+    };
+};
+
+#define GUI_GRID_WAbs		((safezoneW / safezoneH) min 1.2)
+#define GUI_GRID_HAbs		(GUI_GRID_WAbs / 1.2)
+#define GUI_GRID_W			(GUI_GRID_WAbs / 40)
+#define GUI_GRID_H			(GUI_GRID_HAbs / 25)
+
+
+import RscListBox;
+class DM_ListBox : RscListBox {
+	font = "RobotoCondensed";
+	sizeEx = 1 * GUI_GRID_H;
+	canDrag = 0;
+	rowHeight = 1.2 * GUI_GRID_H;
+};
+
+class DM_ListBoxDrag : DM_ListBox {
+	sizeEx = 0.9 * GUI_GRID_H;
+	canDrag = 1;
+	rowHeight = 1.3 * GUI_GRID_H;
+};
+
+class RscTitles {
+	class DMHud {
+		name = "DMHud";
+		idd = -1;
+		onLoad = "uiNamespace setVariable ['DMHud', _this select 0];";
+		onUnload = "uiNamespace setVariable ['DMHud', displayNull]";
+		duration = 999999;
+
+		class objects {};
+		class controlsBackground {};
+		class controls {};
+	};
+	class DMScore {
+		name = "DMScore";
+		idd = -1;
+		onLoad = "uiNamespace setVariable ['DMScore', _this select 0];";
+		onUnload = "uiNamespace setVariable ['DMScore', displayNull]";
+		duration = 999999;
+
+		class objects {};
+		class controlsBackground {};
+		class controls {};
+	};
+};
+
+class DMCfgWarVehicles {
+	class O_Heli_Attack_02_dynamicLoadout_F {};
+	class B_Heli_Attack_01_dynamicLoadout_F {};
+	class I_Heli_light_03_dynamicLoadout_F {};
+	class O_Heli_Light_02_dynamicLoadout_F {};
+	class B_Heli_Light_01_dynamicLoadout_F {};
+};
+
+// Конфиг возможных точек появления
+class DMCfgSpawn {
+	// Основной спавн
+	class DefaultBase {
+		displayName = "Основная база";
+		spawnPos[] = {
+			23745, 16208, 0
+		};
+		radius = 200;
+		vehicleSpawns[] = {{}};
+		spawnDirection = 0;
+	};
+	class AirWarVehicleBase : DefaultBase {
+		displayName = "Feres Airport";
+		spawnPos[] = {
+			20778, 7246, 0
+		};
+		vehicleSpawns[] = {
+			{20798.1, 7228.2, 0}, 
+			{20784.4, 7216.4, 0},
+			{20813.4, 7236.5, 0}
+		};
+	};
+	class AirWarVehicleBase_1 : DefaultBase {
+		displayName = "Molos Airport";
+		spawnPos[] = {
+			26774.7, 24637.3, 0
+		};
+		vehicleSpawns[] = {
+			{26791.3, 24620.2, 0},
+			{26782.3, 24609.4, 0},
+			{26801.2, 24630.3, 0}
+		};
+	};
+	class AirWarVehicleBase_2 : DefaultBase {
+		displayName = "AAC Airport";
+		spawnPos[] = {
+			11584.4, 11952.2, 0
+		};
+		vehicleSpawns[] = {
+			{11595.6, 11943.8, 0},
+			{11587.9, 11932.1, 0},
+			{11603.5, 11955.3, 0}
+		};
+	};
+	class AirWarVehicleBase_3 : DefaultBase {
+		displayName = "Abdera Airport";
+		spawnPos[] = {
+			9173, 21657, 0
+		};
+		vehicleSpawns[] = {
+			{9191.58, 21647.1, 0},
+			{9183.21, 21640.8, 0},
+			{9174.79, 21634.7, 0}
+		};
+	};
+};
+
+// Наборы одежды
+class DMCfgClothes {
+	/*
+	class UniformPackExample : Default {
+		displayName = "";
+		picture = "";
+		uniform = "";
+		vest = "";
+		backPack = "";
+		headGear = "";
+		goggles = "";
+	};
+	*/
+	// Стандартный набор, от него уже создавать остальные
+	class Default {
+		displayName = 	"Стандартный набор";
+		picture = 		"";
+		uniform = 		"U_BG_Guerilla1_1";
+		vest = 			"V_PlateCarrier2_rgr";
+		backPack = 		"B_Kitbag_mcamo_Eng";
+		headGear = 		"H_Cap_oli";
+		goggles = 		"G_Balaclava_blk";
+		binocular = 	"Binocular";
+		gps = 			"ItemGPS";
+		nightVision = 	"";
+	};
+
+	class LightPack : Default {
+		displayName = 	"Легкий набор";
+		uniform = 		"U_C_Poloshirt_blue";
+		vest = 			"V_PlateCarrier1_blk";
+		backPack = 		"B_LegStrapBag_black_F";
+		headGear = 		"H_Cap_Black_IDAP_F";
+		goggles = 		"G_Bandanna_aviator";
+	};
+
+	class YellowPack : Default {
+		displayName = 	"Желтый набор";
+		uniform = 		"U_Competitor";
+		vest = 			"V_DeckCrew_yellow_F";
+		backPack = 		"B_LegStrapBag_coyote_F";
+		headGear = 		"H_Cap_marshal";
+		goggles = 		"G_Sport_Blackyellow";
+	};
+
+	class GreenPack : Default {
+		displayName = 	"Зеленый набор 1";
+		uniform = 		"U_I_E_Uniform_01_sweater_F";
+		vest = 			"V_PlateCarrier1_wdl";
+		backPack = 		"B_ViperHarness_oli_F";
+		headGear = 		"H_Booniehat_mgrn";
+		goggles = 		"G_mas_wpn_wrap_mask_g";
+	};
+
+	class GreenPack_1 : Default {
+		displayName = 	"Зеленый набор 2";
+		uniform = 		"U_B_CombatUniform_vest_mcam_wdl_f";
+		vest = 			"V_PlateCarrier1_wdl";
+		backPack = 		"B_TacticalPack_oli";
+		headGear = 		"H_Cap_oli";
+		goggles = 		"G_Squares_Tinted";
+	};
+
+	class BlackPack : Default {
+		displayName = 	"Черный набор";
+		uniform = 		"U_O_R_Gorka_01_black_F";
+		vest = 			"V_PlateCarrier1_blk";
+		backPack = 		"B_LegStrapBag_black_F";
+		headGear = 		"H_Watchcap_blk";
+		goggles = 		"G_Bandanna_shades";
+	};
+};
+
+// Доступные оружия
+class DMCfgWeapons {
+	class arifle_mas_ak_74m_sf {};
+	class arifle_AK12_F {};
+	class arifle_ARX_blk_F {};
+	class srifle_DMR_03_F {};
+	class srifle_EBR_F {};
+	class arifle_CTARS_blk_F {};
+	class arifle_MX_SW_Black_F {};
+	class arifle_SPAR_02_blk_F {};
+	class LMG_mas_M249_F {};
+	class LMG_Mk200_F {};
+	class LMG_03_F {};
+	class LMG_mas_rpk_F {};
+	class LMG_mas_m240_F {};
+	class launch_RPG7V {};
+};
+
+// Доступные магазины для оружия
+class DMCfgMagazines {
+	class 30Rnd_mas_545x39_mag {};
+	class 30Rnd_762x39_AK12_Mag_F {};
+	class 30Rnd_65x39_caseless_green {};
+	class 10Rnd_50BW_Mag_F {};
+	class 20Rnd_762x51_Mag {};
+	class 100Rnd_580x42_Mag_F {};
+	class 100Rnd_65x39_caseless_black_mag {};
+	class 150Rnd_556x45_Drum_Mag_F {};
+	class 200Rnd_mas_556x45_Stanag {};
+	class 200Rnd_65x39_cased_Box {};
+	class 200Rnd_556x45_Box_F {};
+	class 100Rnd_mas_545x39_mag {};
+	class 150Rnd_762x51_Box {};
+	class RPG7_PG7V {};
+	class RPG7_PG7VR {};
+};
+
+// Доступные прицелы
+class DMCfgOptics {
+	class optic_Holosight_blk_F {};
+	class optic_ACO_grn {};
+	class optic_aco_smg {};
+	class optic_mas_aim {};
+};

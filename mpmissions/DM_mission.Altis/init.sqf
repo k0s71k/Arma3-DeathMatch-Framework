@@ -1,0 +1,1 @@
+[] spawn client_init_player;
