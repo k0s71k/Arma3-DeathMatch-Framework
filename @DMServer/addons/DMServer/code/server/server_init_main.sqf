@@ -7,7 +7,7 @@ addMissionEventHandler ["HandleDisconnect", {_this call server_event_clientDisco
 
 [] spawn server_init_locations;
 
-[] spawn server_init_respawn;
+[] spawn server_init_restarts;
 
 missionNamespace setVariable ["server_isReady", true, true];
 
