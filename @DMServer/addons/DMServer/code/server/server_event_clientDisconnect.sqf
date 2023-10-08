@@ -5,3 +5,5 @@ if (!isNull _unit) then {
 	_unit setDamage 1;
 	deleteVehicle _unit;
 };
+
+false
