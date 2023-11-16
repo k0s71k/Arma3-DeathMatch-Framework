@@ -37,23 +37,29 @@ private _scriptHeader = '
 	["client_init_hud", 						"DMServer\code\client\init\client_init_hud.sqf", 							CLIENT],
 	["client_init_moon", 						"DMServer\code\client\init\client_init_moon.sqf", 							CLIENT],
 	["client_init_anticheat", 					"DMServer\code\client\init\client_init_anticheat.sqf", 						CLIENT],
+	// События
+	["client_event_adminBinds",					"DMServer\code\client\events\client_event_adminBinds.sqf", 					CLIENT],
+	["client_event_draw3D",						"DMServer\code\client\events\client_event_draw3D.sqf", 						CLIENT],
+	["client_event_inventoryOpened",			"DMServer\code\client\events\client_event_inventoryOpened.sqf", 			CLIENT],
+	["client_event_keyBinds",					"DMServer\code\client\events\client_event_keyBinds.sqf", 					CLIENT],
+	["client_event_onDamage",					"DMServer\code\client\events\client_event_onDamage.sqf", 					CLIENT],
 	// Скрипты спавна
 	["client_spawn_onBase", 					"DMServer\code\client\spawn\client_spawn_onBase.sqf",						CLIENT],
 	["client_spawn_onPosition", 				"DMServer\code\client\spawn\client_spawn_onPosition.sqf",					CLIENT],
 	["client_spawn_vehicleWar", 				"DMServer\code\client\spawn\client_spawn_vehicleWar.sqf",					CLIENT],
 	["client_spawn_chooseCity", 				"DMServer\code\client\spawn\client_spawn_chooseCity.sqf",					CLIENT],
 	// Вспомогательные скрипты
-	["client_utils_inSafeZone", 				"DMServer\code\client\client_utils_inSafeZone.sqf", 						CLIENT],
-	["client_utils_healMe", 					"DMServer\code\client\client_utils_healMe.sqf", 							CLIENT],
+	["client_utils_changeViewDistance",			"DMServer\code\client\utils\client_utils_changeViewDistance.sqf",			CLIENT],
+	["client_utils_inSafeZone", 				"DMServer\code\client\utils\client_utils_inSafeZone.sqf", 					CLIENT],
+	["client_utils_healMe", 					"DMServer\code\client\utils\client_utils_healMe.sqf", 						CLIENT],
 	// Скрипты действий
 	["client_actions_jump",						"DMServer\code\client\client_actions_jump.sqf", 							CLIENT],
 	// Уведомления
 	["client_gui_hint", 						"DMServer\code\client\gui\client_gui_hint.sqf", 							CLIENT],
 	["client_gui_hintThread", 					"DMServer\code\client\gui\client_gui_hintThread.sqf", 						CLIENT],
 	["client_gui_unloadDisplay",				"DMServer\code\client\gui\client_gui_unloadDisplay.sqf", 					CLIENT],
-	// Киллы
 	["client_gui_initScoreBoard", 				"DMServer\code\client\gui\client_gui_initScoreBoard.sqf", 					CLIENT],
-	["client_event_killed", 					"DMServer\code\client\client_event_killed.sqf", 							CLIENT],
+	["client_gui_killFeed", 					"DMServer\code\client\gui\client_gui_killFeed.sqf", 						CLIENT],
 	// Боевая техника
 	["client_vehicle_warChoose", 				"DMServer\code\client\client_vehicle_warChoose.sqf", 						CLIENT],
 	["client_vehicle_punishment", 				"DMServer\code\client\client_vehicle_punishment.sqf", 						CLIENT],

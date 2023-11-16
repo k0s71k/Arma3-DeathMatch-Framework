@@ -2,6 +2,7 @@
 DM_killFeed = [];
 DM_hintData = [];
 DM_timeout = time;
+DM_jumpActionTime = time;
 DM_viewDistance = (profileNamespace getVariable ["DM_viewDistance", 400]) max 200;
 setViewDistance DM_viewDistance;
 setObjectViewDistance DM_viewDistance - 100;

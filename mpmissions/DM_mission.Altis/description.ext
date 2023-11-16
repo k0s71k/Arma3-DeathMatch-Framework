@@ -77,7 +77,7 @@ class CfgRemoteExec {
 		// На клиент
 		AllowFunction(client_gui_hint,1)
 		AllowFunction(client_actions_jump,1)
-		AllowFunction(client_event_killed,1)
+		AllowFunction(client_gui_killFeed,1)
 		AllowFunction(client_vehicle_punishment,1)
 		// Обязательные бисовские функции
 		AllowFunction(BIS_fnc_curatorRespawn,0)
