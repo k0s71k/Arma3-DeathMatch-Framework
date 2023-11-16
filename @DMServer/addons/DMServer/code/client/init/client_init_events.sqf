@@ -220,6 +220,8 @@ if (getPlayerUID player in [/* "1UID", "2UID" */]) then {
 player addEventHandler ["HandleDamage", {
 	params ["_unit", "_selection", "_damage", "_shooter", "_projectile", "_hitPointIndex", "_instigator"];
 	// Не считаем урон от боевой техники, если игрок пехотинец
+	_shooter = [_shooter, _instigator] select (!isNull _instigator);
+	
 	if (
 		((driver _shooter) getVariable ["DM_WarVehicleMode", false]) AND	// Убийца в боевом режиме
 		{!(player getVariable ["DM_WarVehicleMode", false])}				// Игрок не в боевом режиме
@@ -286,11 +288,6 @@ player addEventHandler ["InventoryOpened", {
 	};
 
 	true
-}];
-
-player addEventHandler ["InventoryClosed", {
-	// При закрытии инвентаря, удаляем контейнер
-	deleteVehicle (_this # 1);
 }];
 
 // Отображаем имена игроков
