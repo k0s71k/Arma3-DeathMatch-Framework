@@ -52,6 +52,7 @@ private _scriptHeader = '
 	["client_utils_changeViewDistance",			"DMServer\code\client\utils\client_utils_changeViewDistance.sqf",			CLIENT],
 	["client_utils_inSafeZone", 				"DMServer\code\client\utils\client_utils_inSafeZone.sqf", 					CLIENT],
 	["client_utils_healMe", 					"DMServer\code\client\utils\client_utils_healMe.sqf", 						CLIENT],
+	["client_utils_isAdmin", 					"DMServer\code\client\utils\client_utils_isAdmin.sqf", 						CLIENT],
 	// Скрипты действий
 	["client_actions_jump",						"DMServer\code\client\client_actions_jump.sqf", 							CLIENT],
 	// Уведомления
