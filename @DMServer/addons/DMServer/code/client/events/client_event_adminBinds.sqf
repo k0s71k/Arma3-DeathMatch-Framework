@@ -69,7 +69,7 @@ if !([player] call client_utils_isAdmin) exitWith {};
 				_position # 2
 			];
 			_vehicle setPosATL _moveForvardPos;
-			true
+			_handled = true
 		};
 		// Repair object (Shift + F)
 		case 33 : {
@@ -81,7 +81,7 @@ if !([player] call client_utils_isAdmin) exitWith {};
 			_target setDamage 0;
 			
 			[format["Вы починили %1", getText(configFile >> "CfgVehicles" >> typeOf _target >> "displayName")], "done"] call client_gui_hint;
-			true
+			_handled = true
 		};
 		// Delete (Delete Object)
 		case 211 : {
@@ -89,10 +89,10 @@ if !([player] call client_utils_isAdmin) exitWith {};
 				
 			deleteVehicle _target;
 			[format["Вы удалили %1", getText(configFile >> "CfgVehicles" >> typeOf _target >> "displayName")], "done"] call client_gui_hint;
-			true
+			_handled = true
 		};
 
-		default {false};
+		default {};
 	};
 	_handled
 }];
