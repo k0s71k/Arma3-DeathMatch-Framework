@@ -10,20 +10,20 @@ private _vehicle = _className createVehicle [0, 0, 300];
 _vehicle allowDamage false;
 //_vehicle setPosATL _position;
 //_vehicle setVectorUp (surfaceNormal _position);
-_vehicle setDir _direction;
+_vehicle setDir 	_direction;
 _vehicle setVehiclePosition [_position, [], 0, "CAN_COLLIDE"];
-_vehicle setDamage 0;
-_vehicle setFuel 1;
-_vehicle lock false;
-_vehicle disableTIEquipment true;
-_vehicle enableRopeAttach false;
-_vehicle allowDamage true;
+_vehicle setDamage	0;
+_vehicle setFuel	1;
+_vehicle lock		false;
+_vehicle disableTIEquipment	true;
+_vehicle enableRopeAttach	false;
+_vehicle allowDamage		true;
 
 // Удаляем вещи из транспорта
-clearWeaponCargoGlobal _vehicle;
-clearItemCargoGlobal _vehicle;
-clearMagazineCargoGlobal _vehicle;
-clearBackpackCargoGlobal _vehicle;
+clearWeaponCargoGlobal		_vehicle;
+clearItemCargoGlobal		_vehicle;
+clearMagazineCargoGlobal	_vehicle;
+clearBackpackCargoGlobal	_vehicle;
 // Сообщаем человеку о том, что техника будет удалена, если не сесть в неё
 private _vehicleName = getText(configFile >> "CfgVehicles" >> _className >> "displayName");
 [

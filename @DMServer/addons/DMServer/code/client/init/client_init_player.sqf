@@ -4,23 +4,21 @@ waitUntil {uiSleep 0.3; !isNull player AND {player == player}};
 waitUntil {uiSleep 0.3; !isNull (findDisplay 46)};
 
 // Второстепенные настройки
-disableRemoteSensors true;
-enableSaving [false, false];
-showChat false;
-enableEnvironment false;
-enableRadio false;
-enableSentences false;
+disableRemoteSensors	true;
+enableSaving			[false, false];
+showChat				false;
+enableEnvironment		false;
+enableRadio				false;
+enableSentences			false;
 
 // Убираем стандартную отрисовку карты
 ((findDisplay 12) displayCtrl 51) ctrlRemoveAllEventHandlers "draw";
 // Затемняем экран
 cutText ["Настройка клиента...", "BLACK FADED", 999, true];
-// CBA Эксплойты
-[] spawn client_init_anticheat;
 // Убираем траву
 setTerrainGrid 50;
-
-// Основной инит клиента
+// CBA Эксплойты
+[] spawn client_init_anticheat;
 // Обработчики событий
 [] call client_init_events;
 // Инит переменных
@@ -38,9 +36,9 @@ setTerrainGrid 50;
 waitUntil {uiSleep 0.3; missionNamespace getVariable ["server_isReady", false]};
 
 // Ставим игрока на начальную позицию
-player setPosATL getArray(missionConfigFile >> "DMCfgSpawn" >> "DefaultBase" >> "spawnPos");
-player enableFatigue false;
-player addRating 99999999;
+player setPosATL		getArray(missionConfigFile >> "DMCfgSpawn" >> "DefaultBase" >> "spawnPos");
+player enableFatigue	false;
+player addRating		99999999;
 
 uiSleep 1;
 // Убираем затемнение

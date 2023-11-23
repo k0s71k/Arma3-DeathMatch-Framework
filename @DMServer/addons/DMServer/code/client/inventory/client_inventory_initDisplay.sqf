@@ -1,11 +1,10 @@
-//client_inventory_initDisplay
 params [
     ["_display",displayNull,[displayNull]]
 ];
 
 _display setVariable ["container", _container];
 _display setVariable ["readonly", _readonly];
-// Mouse Moving для перемещения летающей картинки
+// Mouse Moving для перемещения картинки
 _display displayAddEventHandler ["MouseMoving", {
 	params ["_display"];
 	private _ghostCtrl = _display displayCtrl 1000;
@@ -39,27 +38,27 @@ _display displayAddEventHandler ["MouseButtonUp", {
 	if (_classname isEqualTo "") exitWith {};
 	// Set specific data for subtractor 
 	switch (true) do {
-		case (_classname isEqualTo primaryWeapon player): {_data set [5, getUnitLoadout player # 0]};
-		case (_classname isEqualTo secondaryWeapon player): {_data set [5, getUnitLoadout player # 1]};
-		case (_classname isEqualTo handgunWeapon player): {_data set [5, getUnitLoadout player # 2]};
-		case (_classname isEqualTo binocular player): {_data set [5, getUnitLoadout player # 8]};
-		case (_classname in primaryWeaponMagazine player): {
-			private _MagContainer = getUnitLoadout player # 0 # 4;
-			private _GLContainer = getUnitLoadout player # 0 # 5;
-			private _magazineData = switch (true) do {
+		case (_classname isEqualTo primaryWeapon player)	: {_data set [5, getUnitLoadout player # 0]};
+		case (_classname isEqualTo secondaryWeapon player)	: {_data set [5, getUnitLoadout player # 1]};
+		case (_classname isEqualTo handgunWeapon player)	: {_data set [5, getUnitLoadout player # 2]};
+		case (_classname isEqualTo binocular player)		: {_data set [5, getUnitLoadout player # 8]};
+		case (_classname in primaryWeaponMagazine player)	: {
+			private _MagContainer	= getUnitLoadout player # 0 # 4;
+			private _GLContainer	= getUnitLoadout player # 0 # 5;
+			private _magazineData	= switch (true) do {
 				case (_classname in _MagContainer): {_MagContainer};
 				case (_classname in _GLContainer): {_GLContainer};
 			};
 			_data set [5,_magazineData];
 		};					
-		case (_classname in secondaryWeaponMagazine player): {_data set [5, getUnitLoadout player # 1 # 4]};
-		case (_classname in handgunMagazine player): {_data set [5, getUnitLoadout player # 2 # 4]};
+		case (_classname in secondaryWeaponMagazine player)	: {_data set [5, getUnitLoadout player # 1 # 4]};
+		case (_classname in handgunMagazine player)			: {_data set [5, getUnitLoadout player # 2 # 4]};
 	};	
 	private _dropCtrl = controlNull;
 	private _mousePosition = getMousePosition + [0];
 	// Если курсор находится на одном из списков
 	[_display displayCtrl 100,_display displayCtrl 105] findIf {
-		(ctrlPosition _x) params ["_posX","_posY","_posW","_posH"];
+		(ctrlPosition _x) params ["_posX", "_posY", "_posW", "_posH"];
 		if (_mousePosition inPolygon [
 			[_posX, _posY, 0],
 			[_posX + _posW, _posY, 0],
@@ -68,13 +67,13 @@ _display displayAddEventHandler ["MouseButtonUp", {
 		]) exitWith {_dropCtrl = _x};
 	};
 	if (!isNull _dropCtrl) then {
-		private _toContainer = _dropCtrl getVariable ["containerObject",objNull];
+		private _toContainer = _dropCtrl getVariable ["containerObject", objNull];
 		if (isNull _toContainer) exitWith {};
 		if (_readonly AND !(_toContainer isEqualTo backpackContainer player)) exitWith {4 call client_inventory_message};
 		if ((_config isEqualTo "CfgVehicles") AND (_toContainer isEqualTo backpackContainer player)) exitWith {}; // Stop self-anihilation.
-		_display setVariable ["fromContainer",player];
-		_display setVariable ["toContainer",_toContainer];
-		_display setVariable ["toIDC",ctrlIDC _dropCtrl];
+		_display setVariable ["fromContainer",	player];
+		_display setVariable ["toContainer",	_toContainer];
+		_display setVariable ["toIDC",			ctrlIDC _dropCtrl];
 		_data call client_inventory_moveItem;
 	};
 }];

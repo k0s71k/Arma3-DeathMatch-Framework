@@ -6,10 +6,10 @@ switch (_button) do {
         private _ghostCtrl = _display displayCtrl 1000;
         ctrlDelete _ghostCtrl;
         if (ctrlClassName _ctrl in ["RscPicture", "RscPictureKeepAspect"]) then {
-            private _data = _ctrl getVariable ["data", []];
+            private _data       = _ctrl getVariable ["data", []];
             _data params [["_classname", ""]];
             if (_classname isEqualTo "") exitWith {};
-            private _ghostCtrl = _display ctrlCreate ["RscPictureKeepAspect", 1000];
+            private _ghostCtrl  = _display ctrlCreate ["RscPictureKeepAspect", 1000];
             getMousePosition params ["_mouseX", "_mouseY"];
             private _controlPos = ctrlPosition _ctrl;
             _ghostCtrl ctrlSetPosition [
@@ -29,13 +29,13 @@ switch (_button) do {
     case 1: {
         private _data = switch (true) do {
             case (ctrlClassName _ctrl in ["RscPicture", "RscPictureKeepAspect"]): {
-                private _data = _ctrl getVariable ["data", []];
+                private _data   = _ctrl getVariable ["data", []];
                 _data
             };
             case (ctrlClassName _ctrl in ["DM_ListBoxDrag"]): {
                 if (lbCurSel _list isEqualTo -1) exitWith {[]};
-                private _data = _ctrl lbData (lbCurSel _ctrl);
-                _data = call compile _data;
+                private _data   = _ctrl lbData (lbCurSel _ctrl);
+                _data           = call compile _data;
                 _data
             };
             default {[]};

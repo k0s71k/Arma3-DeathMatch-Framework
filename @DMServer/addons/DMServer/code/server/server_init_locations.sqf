@@ -18,13 +18,13 @@ missionNamespace setVariable ["DM_Locations", _locations, true];
 {
 	private _locationPosition = _x # 0;
 
-	private _markerEllipse = createMarker [format ["dm_location_ellipse_%1", _forEachIndex], _locationPosition];
-	_markerEllipse setMarkerShape "ELLIPSE";
-	_markerEllipse setMarkerSize [_x # 2, _x # 2];
-	_markerEllipse setMarkerDir (_x # 3);
-	_markerEllipse setMarkerColor "ColorBlack";
-	_markerEllipse setMarkerBrush "Solid";
-	_markerEllipse setMarkerAlpha 0.7;
+	private _markerEllipse			= createMarker [format ["dm_location_ellipse_%1", _forEachIndex], _locationPosition];
+	_markerEllipse setMarkerShape	"ELLIPSE";
+	_markerEllipse setMarkerSize	[_x # 2, _x # 2];
+	_markerEllipse setMarkerDir		(_x # 3);
+	_markerEllipse setMarkerColor	"ColorBlack";
+	_markerEllipse setMarkerBrush	"Solid";
+	_markerEllipse setMarkerAlpha	0.7;
 } foreach _locations;
 
 DM_activeLocations = [];
@@ -58,9 +58,9 @@ private _waitLocationEmpty = {
 // Запускаем цикл проверки нахождения людей в 
 for "_i" from 0 to 1 step 0 do {
 	{
-		private _position = _x # 0;
-		private _size = _x # 2;
-		private _angle = _x # 3;
+		private _position	= _x # 0;
+		private _size		= _x # 2;
+		private _angle		= _x # 3;
 		// Пропускаем итерацию если в кругу никого нет
 		if (
 			({

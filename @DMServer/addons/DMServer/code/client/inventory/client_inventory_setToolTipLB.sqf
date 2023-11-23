@@ -11,10 +11,10 @@ switch (_config) do {
 		if (_data isEqualTo []) exitWith {};
 		_data params ["_weaponClass","_muzzle","_pointer","_optics","_magArray","_secMagArray","_bipod"];
 		_text = _text + "\n";
-		if !(_muzzle isEqualTo "") then {_text = _text + "\nИмеет глушитель"};
+		if !(_muzzle isEqualTo "")	then {_text = _text + "\nИмеет глушитель"};
 		if !(_pointer isEqualTo "") then {_text = _text + "\nИмеет указатель"};
-		if !(_optics isEqualTo "") then {_text = _text + "\nИмеет оптику"};
-		if !(_bipod isEqualTo "") then {_text = _text + "\nИмеет сошки"};
+		if !(_optics isEqualTo "")	then {_text = _text + "\nИмеет оптику"};
+		if !(_bipod isEqualTo "")	then {_text = _text + "\nИмеет сошки"};
 		if (!(_magArray isEqualTo []) OR !(_secMagArray isEqualTo [])) then {_text = _text + "\nОружие заряжено"};
 	};
 	case "CfgVehicles": {

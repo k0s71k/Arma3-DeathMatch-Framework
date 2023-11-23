@@ -12,9 +12,9 @@ private _ctrlSetToolTip = {
 	private _displayName = getText (configFile >> _config >> _classname >> "displayName");
 	private _massUnit = switch (true) do {
 		case (isClass (configFile >> _config >> _classname >> "WeaponSlotsInfo")): {getNumber (configFile >> _config >> _classname >> "WeaponSlotsInfo" >> "mass")};
-		case (_config isEqualTo "CfgGlasses"): {getNumber (configFile >> "CfgGlasses" >> _classname >> "mass")};
-		case (_config isEqualTo "CfgMagazines"): {getNumber (configFile >> "CfgMagazines" >> _classname  >> "mass")};
-		case (_config isEqualTo "CfgVehicles"): {getNumber (configFile >> "CfgVehicles" >> _classname >> "mass")};
+		case (_config isEqualTo "CfgGlasses")	: {getNumber (configFile >> "CfgGlasses" >> _classname >> "mass")};
+		case (_config isEqualTo "CfgMagazines")	: {getNumber (configFile >> "CfgMagazines" >> _classname  >> "mass")};
+		case (_config isEqualTo "CfgVehicles")	: {getNumber (configFile >> "CfgVehicles" >> _classname >> "mass")};
 		default {getNumber (configFile >> _config >> _classname >> "ItemInfo" >> "mass")};
 	};	
 	private _text = format["%1\nВес: %2 кг",_displayName,_massUnit / 20 toFixed 1];
@@ -33,10 +33,10 @@ private _ctrlSetToolTip = {
 };
 
 params [
-	["_control", controlNull, [controlNull]],
-	["_item", "", [""]],
-	["_configClass", "", [""]],
-	["_defaultPicture", "", [""]]
+	["_control",		controlNull,	[controlNull]],
+	["_item",			"",				[""]],
+	["_configClass",	"",				[""]],
+	["_defaultPicture",	"",				[""]]
 ];
 // Устанавливаем подсказку
 [_control, _item, _configClass] call _ctrlSetToolTip;

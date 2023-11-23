@@ -3,8 +3,8 @@ params [
 ];
 
 {
-	_x ctrlSetFade 1;
-	_x ctrlCommit 0.1;
+	_x ctrlSetFade	1;
+	_x ctrlCommit	0.1;
 } foreach (allControls _display);
 uiSleep 0.15;
 

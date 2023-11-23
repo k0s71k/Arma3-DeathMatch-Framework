@@ -8,12 +8,12 @@ params [
 ];
 
 // Some Math shit
-private _pictureHeight = 3 * GUI_GRID_H;
-private _weaponItemsHeight = 1.5 * GUI_GRID_H;
-private _weaponItemsMargin = 0.2 * GUI_GRID_W;
-private _weaponItemsWidth = (14.5 * GUI_GRID_W - (_weaponItemsMargin * (_itemsCount - 1))) / _itemsCount;
-private _controlXPos = 0;
-private _controlsArray = [];
+private _pictureHeight		= 3 * GUI_GRID_H;
+private _weaponItemsHeight	= 1.5 * GUI_GRID_H;
+private _weaponItemsMargin	= 0.2 * GUI_GRID_W;
+private _weaponItemsWidth	= (14.5 * GUI_GRID_W - (_weaponItemsMargin * (_itemsCount - 1))) / _itemsCount;
+private _controlXPos		= 0;
+private _controlsArray		= [];
 
 // Главный слот оружия
 private _picture = [_display, [

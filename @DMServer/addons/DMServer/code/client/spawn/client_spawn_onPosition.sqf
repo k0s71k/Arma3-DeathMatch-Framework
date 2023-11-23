@@ -12,18 +12,18 @@ _positionArray params [
 	"_angle"
 ];
 // Определяем рандомное направление от центральной точки
-private _direction = random 360;
+private _direction	= random 360;
 // Определяем рандомную дистанцию от центральной точки
-private _distance = random (_size * 0.5);
+private _distance	= random (_size * 0.5);
 private _newPosition = [
 	(_position # 0) + (sin _direction * _distance),
 	(_position # 1) + (cos _direction * _distance),
 	random 1
 ];
 // Устанавливаем новую позицию
-player setPosATL _newPosition;
+player setPosATL	_newPosition;
 // Устанавливаем переменную новой локации
-player setVariable ["DM_CurrentLocation", _locationName, true];
+player setVariable	["DM_CurrentLocation", _locationName, true];
 
 waitUntil {
 	uiSleep 1;

@@ -1,11 +1,12 @@
 params [
 	["_slotType", ""]
 ];
-private _display = uiNamespace getVariable ["InventoryDisplay",displayNull];
-private _backList = _display getVariable ["backList",controlNull];
-private _containerList = _display getVariable ["containerList",controlNull];
+
+private _display		= uiNamespace getVariable ["InventoryDisplay",displayNull];
+private _backList		= _display getVariable ["backList",controlNull];
+private _containerList	= _display getVariable ["containerList",controlNull];
 private _scanListBox = {
-	params ["_list", "_typesToFind", ["_compatibleWith",""]];
+	params ["_list", "_typesToFind", ["_compatibleWith", ""]];
 	private _dataArray = [];
 	for "_x" from 0 to (lbSize _list - 1) do {
 		private _lbData = call compile (_list lbData _x);
@@ -14,18 +15,18 @@ private _scanListBox = {
 		if (_type in _typesToFind) then {
 			// Specific compatibles
 			if !(_compatibleWith isEqualTo "") exitWith {
-				private _compatibles = getArray (configFile >> "CfgWeapons" >> _compatibleWith >> "magazines");
-				private _muzzles = (getArray (configFile >> "CfgWeapons" >> _compatibleWith >> "muzzles")) - ["this"];
+				private _compatibles	= getArray (configFile >> "CfgWeapons" >> _compatibleWith >> "magazines");
+				private _muzzles		= (getArray (configFile >> "CfgWeapons" >> _compatibleWith >> "muzzles")) - ["this"];
 				{_compatibles append (getArray (configFile >> "CfgWeapons" >> _compatibleWith >> _x >> "magazines"))} forEach _muzzles;
-				private _addons = _compatibleWith call BIS_fnc_compatibleItems;
+				private _addons			= _compatibleWith call BIS_fnc_compatibleItems;
 				_compatibles append _addons;
 
 				if (toLower _classname in (_compatibles apply {toLower _x})) then {
-					private _picture = getText (configFile >> _config >> _classname >> "picture");
+					private _picture	= getText (configFile >> _config >> _classname >> "picture");
 					_dataArray pushBack [[_displayname,_picture],_lbData,(ctrlParentControlsGroup _list) getVariable ["containerObject",objNull]];
 				};
 			};
-			private _picture = getText (configFile >> _config >> _classname >> "picture");
+			private _picture			= getText (configFile >> _config >> _classname >> "picture");
 			if ((_category isEqualTo "Weapon") AND !(_itemdata isEqualTo [_classname,"","","",[],[],""])) then {_displayname = format ["<t color='#00FF00'>%1</t>", _displayname]};
 			_dataArray pushBack [[_displayname,_picture],_lbData,(ctrlParentControlsGroup _list) getVariable ["containerObject",objNull]];
 		};

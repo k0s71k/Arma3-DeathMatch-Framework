@@ -14,24 +14,24 @@ _data params [
 	"_itemdata"
 ];
 
-private _txtSizeM = 1.2;
-private _hO = 0;
-private _textWidthMax = 0;
-private _allButtons = [];
+private _txtSizeM		= 1.2;
+private _hO				= 0;
+private _textWidthMax	= 0;
+private _allButtons		= [];
 getMousePosition params ["_xPos", "_yPos"];
-private _display = ctrlParent _ctrl;
+private _display		= ctrlParent _ctrl;
 ctrlDelete (_display getVariable ["contextGroup",controlNull]);
 //_ctrl ctrlEnable false;
-_display setVariable ["fromContainer", _fromContainer];
-private _currentContainer = _display getVariable ["container", objNull];
-private _containerList = _display getVariable ["containerList", controlNull];
-private _backList = _display getVariable ["backList", controlNull];
-private _itemType = _classname call BIS_fnc_itemType;
+_display setVariable		["fromContainer", _fromContainer];
+private _currentContainer	= _display getVariable ["container", objNull];
+private _containerList		= _display getVariable ["containerList", controlNull];
+private _backList			= _display getVariable ["backList", controlNull];
+private _itemType			= _classname call BIS_fnc_itemType;
 _itemType params ["_category","_type"];
 
 private _makeButton = {
 	params ["_text", "_data", "_toContainer", ["_fromContainer", objNull], ["_toIDC", -1]];
-	private _buttonSizeH = 1.2 * GUI_GRID_H;
+	private _buttonSizeH	= 1.2 * GUI_GRID_H;
 	private _ctrl = _display ctrlCreate ["RscStructuredText", -1, _contextGroup];
 	_ctrl ctrlSetPosition [
 		0, _hO, _gW, _buttonSizeH
@@ -59,8 +59,8 @@ private _makeButton = {
 	if (_data isEqualType {}) then {
 		_ctrl ctrlAddEventHandler ["MouseButtonDown",{
 			params ["_ctrl"];
-			private _display = ctrlParent _ctrl;
-			private _data = _ctrl getVariable ["data",{}];
+			private _display	= ctrlParent _ctrl;
+			private _data		= _ctrl getVariable ["data",{}];
 			call _data;
 			playSound "readoutClick";
 			private _selectedControl = (ctrlParentControlsGroup _ctrl) getVariable ["selectedControl",controlNull];
@@ -70,11 +70,11 @@ private _makeButton = {
 	} else {
 		_ctrl ctrlAddEventHandler ["MouseButtonDown", {
 			params ["_ctrl"];
-			private _display = ctrlParent _ctrl;
-			private _data = _ctrl getVariable ["data", []];
-			private _toContainer = _ctrl getVariable ["toContainer", objNull];
-			private _fromContainer = _ctrl getVariable ["fromContainer", objNull];
-			private _toIDC = _ctrl getVariable ["toIDC", -1];
+			private _display		= ctrlParent _ctrl;
+			private _data			= _ctrl getVariable ["data", []];
+			private _toContainer	= _ctrl getVariable ["toContainer", objNull];
+			private _fromContainer	= _ctrl getVariable ["fromContainer", objNull];
+			private _toIDC			= _ctrl getVariable ["toIDC", -1];
 			if !(isNull _fromContainer) then {
 				_display setVariable ["fromContainer", _fromContainer]
 			};
@@ -103,8 +103,8 @@ private _contextGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1]
 _contextGroup ctrlSetPosition [_xPos - 0.01, _yPos - 0.01, 10 * GUI_GRID_W, 4.5 * GUI_GRID_H];
 _contextGroup ctrlSetFade 1;
 _contextGroup ctrlCommit 0;
-_contextGroup setVariable ["selectedControl", _ctrl];
-_display setVariable ["contextGroup", _contextGroup];
+_contextGroup setVariable	["selectedControl", _ctrl];
+_display setVariable		["contextGroup", _contextGroup];
 (ctrlPosition _contextGroup) params ["_gX","_gY","_gW","_gH"];
 _contextGroup ctrlAddEventHandler ["MouseMoving", {
 	params ["_ctrl", "", "", "_mouseOver"];
@@ -129,10 +129,10 @@ switch (true) do {
 	case (_fromContainer isEqualTo player): {
 		// Slot is empty
 		if (_classname isEqualTo "") then {
-			private _slotType = _ctrl getVariable ["slotType",""];
-			private _slotGroup = ctrlParentControlsGroup _ctrl;
-			private _toIDC = ctrlIDC _slotGroup;
-			private _itemArray = [_slotType] call client_inventory_findCompatibles;
+			private _slotType	= _ctrl getVariable ["slotType",""];
+			private _slotGroup	= ctrlParentControlsGroup _ctrl;
+			private _toIDC		= ctrlIDC _slotGroup;
+			private _itemArray	= [_slotType] call client_inventory_findCompatibles;
 			if (_itemArray isEqualTo []) exitWith {};
 			{
 				_x params ["_actionData", "_data", "_fromContainer"];
@@ -143,21 +143,21 @@ switch (true) do {
 		} else {
 			// Set specific data for subtractor 
 			switch (true) do {
-				case (_classname isEqualTo primaryWeapon player): {_data set [5,getUnitLoadout player select 0]};
-				case (_classname isEqualTo secondaryWeapon player): {_data set [5,getUnitLoadout player select 1]};
-				case (_classname isEqualTo handgunWeapon player): {_data set [5,getUnitLoadout player select 2]};
-				case (_classname isEqualTo binocular player): {_data set [5,getUnitLoadout player select 8]};
-				case (_classname in primaryWeaponMagazine player): {
-					private _MagContainer = getUnitLoadout player select 0 select 4;
-					private _GLContainer = getUnitLoadout player select 0 select 5;
+				case (_classname isEqualTo primaryWeapon player)	: {_data set [5,getUnitLoadout player select 0]};
+				case (_classname isEqualTo secondaryWeapon player)	: {_data set [5,getUnitLoadout player select 1]};
+				case (_classname isEqualTo handgunWeapon player)	: {_data set [5,getUnitLoadout player select 2]};
+				case (_classname isEqualTo binocular player)		: {_data set [5,getUnitLoadout player select 8]};
+				case (_classname in primaryWeaponMagazine player)	: {
+					private _MagContainer	= getUnitLoadout player select 0 select 4;
+					private _GLContainer	= getUnitLoadout player select 0 select 5;
 					private _magazineData = switch (true) do {
-						case (_classname in _MagContainer): {_MagContainer};
-						case (_classname in _GLContainer): {_GLContainer};
+						case (_classname in _MagContainer)	: {_MagContainer};
+						case (_classname in _GLContainer)	: {_GLContainer};
 					};
 					_data set [5, _magazineData];
 				};					
-				case (_classname in secondaryWeaponMagazine player): {_data set [5,getUnitLoadout player select 1 select 4]};
-				case (_classname in handgunMagazine player): {_data set [5,getUnitLoadout player select 2 select 4]};
+				case (_classname in secondaryWeaponMagazine player)	: {_data set [5,getUnitLoadout player select 1 select 4]};
+				case (_classname in handgunMagazine player)			: {_data set [5,getUnitLoadout player select 2 select 4]};
 			};				
 			if !(isNull backpackContainer player) then {
 				if (_classname isEqualTo backpack player) exitWith {
@@ -190,13 +190,13 @@ switch (true) do {
 				// Disassemble weapon
 				if !(_itemdata isEqualTo [_classname,"","","",[],[],""]) then {
 					private _data = {
-						private _containerList = _display getVariable ["containerList",controlNull];
-						private _data = _containerList lbData (lbCurSel _containerList);
-						private _toContainer = _ctrl getVariable ["toContainer",objNull];
-						private _readonly = _display getVariable ["readonly",false];
-						private _remoteContainer = _display getVariable ["container",objNull];
+						private _containerList		= _display getVariable ["containerList",controlNull];
+						private _data				= _containerList lbData (lbCurSel _containerList);
+						private _toContainer		= _ctrl getVariable ["toContainer",objNull];
+						private _readonly			= _display getVariable ["readonly",false];
+						private _remoteContainer	= _display getVariable ["container",objNull];
 						if (_readonly AND _remoteContainer isEqualTo _toContainer) exitWith {4 call client_inventory_message};
-						_data = call compile _data;
+						_data						= call compile _data;
 						_data params ["","","","","","_itemdata"];
 						_itemdata params ["_weapon","_muzzle","_laser","_optics","_magazine","_magazineGL","_bipod"];
 						private _weaponCargo = weaponsItemsCargo _toContainer;
@@ -299,14 +299,14 @@ switch (true) do {
 				// Disassemble weapon
 				if !(_itemdata isEqualTo [_classname,"","","",[],[],""]) then {
 					private _data = {
-						private _backList = _display getVariable ["backList", controlNull];
-						private _data = _backList lbData (lbCurSel _backList);
-						private _toContainer = _ctrl getVariable ["toContainer", objNull];
-						_data = call compile _data;
+						private _backList		= _display getVariable ["backList", controlNull];
+						private _data			= _backList lbData (lbCurSel _backList);
+						private _toContainer	= _ctrl getVariable ["toContainer", objNull];
+						_data					= call compile _data;
 						_data params ["", "", "", "", "", "_itemdata"];
 						_itemdata params ["_weapon", "_muzzle", "_laser", "_optics", "_magazine", "_magazineGL", "_bipod"];
-						private _weaponCargo = weaponsItemsCargo _toContainer;
-						private _index = _weaponCargo findIf {_itemdata isEqualTo _x};
+						private _weaponCargo	= weaponsItemsCargo _toContainer;
+						private _index			= _weaponCargo findIf {_itemdata isEqualTo _x};
 						_weaponCargo deleteAt _index;
 						clearWeaponCargoGlobal _toContainer;
 						{_toContainer addWeaponWithAttachmentsCargoGlobal [_x, 1]} forEach _weaponCargo;
@@ -325,9 +325,9 @@ switch (true) do {
 				// TODO : Добавить кастомные действия для лайва
 				// Equip slots
 				if (_type in ["AccessoryMuzzle", "AccessoryPointer", "AccessorySights", "AccessoryBipod"]) then {
-					private _primaryCompatibles = ((primaryWeapon player) call BIS_fnc_compatibleItems) apply {toLower _x};
-					private _secondaryCompatibles = ((secondaryWeapon player) call BIS_fnc_compatibleItems) apply {toLower _x};
-					private _handgunCompatibles = ((handgunWeapon player) call BIS_fnc_compatibleItems) apply {toLower _x};
+					private _primaryCompatibles		= ((primaryWeapon player) call BIS_fnc_compatibleItems) apply {toLower _x};
+					private _secondaryCompatibles	= ((secondaryWeapon player) call BIS_fnc_compatibleItems) apply {toLower _x};
+					private _handgunCompatibles		= ((handgunWeapon player) call BIS_fnc_compatibleItems) apply {toLower _x};
 					switch (true) do {
 						case (toLower _classname in _primaryCompatibles): {
 							private _picture = getText (configFile >> _config >> _classname >> "picture");

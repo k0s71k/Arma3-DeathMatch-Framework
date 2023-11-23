@@ -1,4 +1,4 @@
-private _class = param[0, "", [""]];
+params [["_class", "", [""]]];
 
 private _configs = [
 	(configFile >> "CfgMagazines"),

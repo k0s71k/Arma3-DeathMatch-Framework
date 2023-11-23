@@ -1,18 +1,26 @@
-params ["_unit", "_selection", "_damage", "_shooter", "_projectile", "_hitPointIndex", "_instigator"];
+params [
+	"_unit",
+	"_selection",
+	"_damage",
+	"_shooter",
+	"_projectile",
+	"_hitPointIndex",
+	"_instigator"
+];
 // Не считаем урон от боевой техники, если игрок пехотинец
 _shooter = [_shooter, _instigator] select (!isNull _instigator);
 
 if (
-	((driver _shooter) getVariable ["DM_WarVehicleMode", false]) AND	// Убийца в боевом режиме
-	{!(player getVariable ["DM_WarVehicleMode", false])}				// Игрок не в боевом режиме
+	((driver _shooter)	getVariable ["DM_WarVehicleMode", false]) AND	// Убийца в боевом режиме
+	{!(player			getVariable ["DM_WarVehicleMode", false])}		// Игрок не в боевом режиме
 ) then {
-	[] remoteExec ["client_vehicle_punishment", crew vehicle _shooter];
-	player setVelocity [0, 0, 0];
-	_damage = 0
+	[] remoteExec		["client_vehicle_punishment", crew vehicle _shooter];
+	player setVelocity	[0, 0, 0];
+	_damage				= 0
 };
 // Не считаем урон на спавнах
-if (call client_utils_inSafeZone) then {_damage = 0};
-if (missionNamespace getVariable ["DM_Killed", false]) then {_damage = 0};
+if (call client_utils_inSafeZone OR 
+	{missionNamespace	getVariable ["DM_Killed", false]}) then {_damage = 0};
 
 // Никогда не убиваем человека
 _damage = _damage min 0.89;
@@ -32,9 +40,9 @@ if (_damage == 0.89) then {
 		[format["Вы убили %1", name player], "done"] remoteExecCall ["client_gui_hint", DM_LastHitFrom];
 		// Получаем сообщение о том, кто убил
 		[format["Вас убил %1", name DM_LastHitFrom], "warning"] call client_gui_hint;
-		DM_LastHitFrom = nil;
+		DM_LastHitFrom	= nil;
 	};
-	_damage = 0
+	_damage	= 0
 };
 
 _damage

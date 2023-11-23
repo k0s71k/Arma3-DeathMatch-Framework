@@ -48,9 +48,9 @@ _vehList ctrlSetPosition [
 
 _title ctrlSetText "Выбор боевой техники:";
 
-_background ctrlSetBackgroundColor [0.1, 0.1, 0.1, 0.85];
-_title ctrlSetBackgroundColor [0.15, 0.15, 0.15, 0.8];
-_vehList ctrlSetBackgroundColor [0.15, 0.15, 0.15, 0.8];
+_background ctrlSetBackgroundColor	[0.1, 0.1, 0.1, 0.85];
+_title ctrlSetBackgroundColor		[0.15, 0.15, 0.15, 0.8];
+_vehList ctrlSetBackgroundColor		[0.15, 0.15, 0.15, 0.8];
 
 {
 	_x ctrlSetFade 1;
@@ -62,10 +62,10 @@ _vehList ctrlAddEventHandler ["LBDblClick", {
 	DM_timeout = time + 0.5;
 
 	params ["_control", "_currentSelect"];
-	private _vehClass = _control lbData _currentSelect;
-	private _locationClass = player getVariable ["DM_WarVehicleBase", ""];
-	private _direction = getNumber(missionConfigFile >> "DMCfgSpawn" >> _locationClass >> "spawnDirection");
-	private _spawnPositions = getArray(missionConfigFile >> "DMCfgSpawn" >> _locationClass >> "vehicleSpawns");
+	private _vehClass		= _control lbData _currentSelect;
+	private _locationClass	= player getVariable ["DM_WarVehicleBase", ""];
+	private _direction		= getNumber(missionConfigFile >> "DMCfgSpawn" >> _locationClass >> "spawnDirection");
+	private _spawnPositions	= getArray(missionConfigFile >> "DMCfgSpawn" >> _locationClass >> "vehicleSpawns");
 
 	{
 		if (count (nearestObjects[_x, ["Car", "Air", "Tank"], 10]) == 0) exitWith {
@@ -75,13 +75,13 @@ _vehList ctrlAddEventHandler ["LBDblClick", {
 }];
 
 {
-	private _vehClass = configName _x;
-	private _displayName = getText(configFile >> "CfgVehicles" >> _vehClass >> "displayName");
-	private _picture = getText(configFile >> "CfgVehicles" >> _vehClass >> "picture");
+	private _vehClass		= configName _x;
+	private _displayName	= getText(configFile >> "CfgVehicles" >> _vehClass >> "displayName");
+	private _picture		= getText(configFile >> "CfgVehicles" >> _vehClass >> "picture");
 
-	_vehList lbAdd _displayName;
-	_vehList lbSetPicture [_forEachIndex, _picture];
-	_vehList lbSetData [_forEachIndex, _vehClass];
+	_vehList lbAdd			_displayName;
+	_vehList lbSetPicture	[_forEachIndex, _picture];
+	_vehList lbSetData		[_forEachIndex, _vehClass];
 } foreach ("true" configClasses (missionConfigFile >> "DMCfgWarVehicles"));
 
 {

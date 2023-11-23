@@ -34,8 +34,8 @@ private _createControl = {
 	_control
 };
 // Определяем цвета фона и элементов
-private _mainBackground = [0.1, 0.1, 0.1, 0.85];
-private _elementBackground = [0.15, 0.15, 0.15, 0.8];
+private _mainBackground		= [0.1, 0.1, 0.1, 0.85];
+private _elementBackground	= [0.15, 0.15, 0.15, 0.8];
 
 // Задний фон для окон
 private _weaponBackground = [_display, "RscText", [
@@ -142,14 +142,14 @@ private _addEvent = {
 	private _gpsClass 		= getText(_packConfig >> "gps");
 	private _nvgClass 		= getText(_packConfig >> "nightVision");
 	// Выдаем выбранный пак
-	player forceAddUniform _uniformClass;
-	player addVest _vestClass;
-	player addBackpack _backClass;
-	player addHeadgear _headClass;
-	player addGoggles _gogglesClass;
-	player addWeapon _binocularClass;
-	player linkItem _gpsClass;
-	player linkItem _nvgClass;
+	player forceAddUniform	_uniformClass;
+	player addVest			_vestClass;
+	player addBackpack		_backClass;
+	player addHeadgear		_headClass;
+	player addGoggles		_gogglesClass;
+	player addWeapon		_binocularClass;
+	player linkItem			_gpsClass;
+	player linkItem			_nvgClass;
 	// Удаляем вещи из рюкзака
 	clearAllItemsFromBackpack player;
 	// Уведомление
@@ -171,13 +171,13 @@ private _addEvent = {
 
 // Добавляем оружия из конфига в список
 {
-	private _class = configName _x;
+	private _class	= configName _x;
 	if (!isClass (configFile >> "CfgWeapons" >> _class)) then {continue};
 	_weaponList lbAdd getText(configFile >> "CfgWeapons" >> _class >> "displayName");
 
-	private _index = lbSize _weaponList - 1;
-	_weaponList lbSetPicture [_index, getText(configFile >> "CfgWeapons" >> _class >> "picture")];
-	_weaponList lbSetData [_index, _class];
+	private _index	= lbSize _weaponList - 1;
+	_weaponList		lbSetPicture [_index, getText(configFile >> "CfgWeapons" >> _class >> "picture")];
+	_weaponList		lbSetData [_index, _class];
 } foreach ("true" configClasses (missionConfigFile >> "DMCfgWeapons"));
 
 // Добавляем магазины из конфига
@@ -186,9 +186,9 @@ private _addEvent = {
 	if !(isClass (configFile >> "CfgMagazines" >> _magClass)) then {continue};
 	_ammoList lbAdd getText(configFile >> "CfgMagazines" >> _magClass >> "displayName");
 
-	private _index = lbSize _ammoList - 1;
-	_ammoList lbSetPicture [_index, getText(configFile >> "CfgMagazines" >> _magClass >> "picture")];
-	_ammoList lbSetData [_index, _magClass];
+	private _index	= lbSize _ammoList - 1;
+	_ammoList		lbSetPicture [_index, getText(configFile >> "CfgMagazines" >> _magClass >> "picture")];
+	_ammoList		lbSetData [_index, _magClass];
 } foreach ("true" configClasses (missionConfigFile >> "DMCfgMagazines"));
 
 // Добавляем пресеты одежды из конфига
@@ -206,14 +206,14 @@ private _addEvent = {
 
 // Прицелы из конфига
 {
-	private _opticClass = configName _x;
-	private _opticConfig = (configFile >> "CfgWeapons" >> _opticClass);
+	private _opticClass		= configName _x;
+	private _opticConfig	= (configFile >> "CfgWeapons" >> _opticClass);
 	if !(isClass _opticConfig) then {continue};
 
-	_opticsList lbAdd getText(_opticConfig >> "displayName");
-	_index = lbSize _opticsList - 1;
-	_opticsList lbSetPicture [_index, getText(_opticConfig >> "picture")];
-	_opticsList lbSetData [_index, _opticClass];
+	_opticsList	lbAdd getText(_opticConfig >> "displayName");
+	_index		= lbSize _opticsList - 1;
+	_opticsList	lbSetPicture [_index, getText(_opticConfig >> "picture")];
+	_opticsList	lbSetData [_index, _opticClass];
 } foreach ("true" configClasses (missionConfigFile >> "DMCfgOptics"));
 
 // Воспроизводим анимацию появления

@@ -1,9 +1,13 @@
 disableSerialization;
 
 for "_i" from 0 to 1 step 0 do {
-	// Обрабатываем массив обычных сообщений
 	{
-		_x params["_control", "_status", "_statusChangeAt"];
+		_x params [
+			"_control",
+			"_status",
+			"_statusChangeAt"
+		];
+
 		// Если время не пришло, пропускаем итерацию
 		if (diag_tickTime < _statusChangeAt) then {continue};
 		// Если уже убрали контрол
@@ -13,16 +17,14 @@ for "_i" from 0 to 1 step 0 do {
 			continue
 		};
 		// Если кончилось время контрола
-		private _newPosition = ctrlPosition _control;
-		_newPosition set [0, safeZoneX + safeZoneW];
+		private _newPosition	= ctrlPosition _control;
+		_newPosition			set [0, safeZoneX + safeZoneW];
 
-		_control ctrlSetFade 1;
-		_control ctrlSetPosition _newPosition;
-		_control ctrlCommit 0.25;
+		_control	ctrlSetFade 1;
+		_control	ctrlSetPosition _newPosition;
+		_control	ctrlCommit 0.25;
 		// Сохраняем полученные значения
-		DM_hintData set [_forEachIndex, [_control, 1, (diag_tickTime + 1)]]
+		DM_hintData	set [_forEachIndex, [_control, 1, (diag_tickTime + 1)]]
 	} foreach DM_hintData;
-
-	// Ждём пол секунды до следующей проверки
 	uiSleep 0.5;
 };

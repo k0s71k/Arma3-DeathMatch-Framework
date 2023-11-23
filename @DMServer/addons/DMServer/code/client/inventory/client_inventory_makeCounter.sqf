@@ -17,8 +17,8 @@ _data params [
 	"_itemdata"
 ];
 
-private _containerLoad = _toContainer getVariable ["currentWeight", 0];
-private _containerLoadMax = _toContainer getVariable ["maximumWeight", 0];
+private _containerLoad		= _toContainer getVariable ["currentWeight", 0];
+private _containerLoadMax	= _toContainer getVariable ["maximumWeight", 0];
 
 // Выходим если только одна единица предмета
 if (_maxamount == 1) exitWith {[_class, _displayname, _config, _mass, 1, _itemdata] call client_inventory_moveItem};
@@ -86,9 +86,9 @@ _slider ctrlAddEventHandler ["KillFocus", {
 // Отслеживаем изменения слайдера
 _slider ctrlAddEventHandler ["SliderPosChanged",{
 	params ["_slider", "_value"];
-	private _value = round _value max 1;
-	private _data = _slider getVariable ["data", []];
-	private _toContainer = _slider getVariable ["toContainer",objNull];
+	private _value			= round _value max 1;
+	private _data			= _slider getVariable ["data", []];
+	private _toContainer	= _slider getVariable ["toContainer",objNull];
 	_data params ["_counter","_displayname","_mass"];
 
 	_counter ctrlSetStructuredText parseText format ["<t align='center'>%1x %2", _value, _displayName];

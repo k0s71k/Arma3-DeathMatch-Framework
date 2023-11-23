@@ -96,14 +96,14 @@ private _containerLoad = [_display, [
 	1 * GUI_GRID_H
 ], "RscStructuredText", _groundContainerGroup, false] call client_inventory_createControl;
 
-_groundContainerGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_containerList ctrlAddEventHandler ["LBDrag", client_inventory_lbDrag];
-_containerList ctrlAddEventHandler ["LBDblClick", client_inventory_lbDblClick];
-_containerList ctrlSetTooltipColorBox [0.6, 0.6, 0.6, 1];
-_containerList ctrlSetTooltipColorShade [0.1, 0.1, 0.1, 0.9];
-_groundContainerGroup setVariable ["weightCtrl", _containerLoad];
-_groundContainerGroup setVariable ["containerObject", _container];
-_display setVariable ["containerList", _containerList];
+_groundContainerGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_containerList ctrlAddEventHandler			["LBDrag", client_inventory_lbDrag];
+_containerList ctrlAddEventHandler			["LBDblClick", client_inventory_lbDblClick];
+_containerList ctrlSetTooltipColorBox		[0.6, 0.6, 0.6, 1];
+_containerList ctrlSetTooltipColorShade		[0.1, 0.1, 0.1, 0.9];
+_groundContainerGroup setVariable			["weightCtrl", _containerLoad];
+_groundContainerGroup setVariable			["containerObject", _container];
+_display setVariable						["containerList", _containerList];
 
 private _playerContainerGroup = [_display, [
 	13 * GUI_GRID_W,
@@ -125,14 +125,15 @@ private _playerContainerLoad = [_display, [
 	13 * GUI_GRID_W,
 	1 * GUI_GRID_H
 ], "RscStructuredText", _playerContainerGroup, false] call client_inventory_createControl;
-_playerContainerGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_playerContainerList ctrlAddEventHandler ["LBDrag", client_inventory_lbDrag];
-_playerContainerList ctrlAddEventHandler ["LBDblClick", client_inventory_lbDblClick];
-_playerContainerList ctrlSetTooltipColorBox [0.6, 0.6, 0.6, 1];
+
+_playerContainerGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_playerContainerList ctrlAddEventHandler	["LBDrag", client_inventory_lbDrag];
+_playerContainerList ctrlAddEventHandler	["LBDblClick", client_inventory_lbDblClick];
+_playerContainerList ctrlSetTooltipColorBox	[0.6, 0.6, 0.6, 1];
 _playerContainerList ctrlSetTooltipColorShade [0.1, 0.1, 0.1, 0.9];
-_playerContainerGroup setVariable ["weightCtrl", _playerContainerLoad];
-_playerContainerGroup setVariable ["containerObject", backpackContainer player];
-_display setVariable ["backList", _playerContainerList];
+_playerContainerGroup setVariable			["weightCtrl", _playerContainerLoad];
+_playerContainerGroup setVariable			["containerObject", backpackContainer player];
+_display setVariable						["backList", _playerContainerList];
 
 // Одежда игрока
 private _uniformGroup = [_display, [
@@ -141,8 +142,8 @@ private _uniformGroup = [_display, [
 	13 * GUI_GRID_W,
 	3 * GUI_GRID_H
 ], 106] call client_inventory_createControlsGroup;
-_uniformGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_uniformGroup setVariable ["containerObject", player];
+_uniformGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_uniformGroup setVariable			["containerObject", player];
 
 private _playerUniform = [_display, [
 	0,
@@ -172,8 +173,8 @@ private _equipmentGroup = [_display, [
 	14.5 * GUI_GRID_W,
 	5.3 * GUI_GRID_H
 ], 101] call client_inventory_createControlsGroup;
-_equipmentGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_equipmentGroup setVariable ["containerObject", player];
+_equipmentGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_equipmentGroup setVariable			["containerObject", player];
 
 private _playerHeadgear = [_display, [
 	0,
@@ -244,8 +245,8 @@ private _primaryWeaponGroup = [_display, [
 	14.5 * GUI_GRID_W,
 	4.6 * GUI_GRID_H
 ], 102] call client_inventory_createControlsGroup;
-_primaryWeaponGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_primaryWeaponGroup setVariable ["containerObject", player];
+_primaryWeaponGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_primaryWeaponGroup setVariable			["containerObject", player];
 
 private _secondaryWeaponGroup = [_display, [
 	26.5 * GUI_GRID_W,
@@ -253,8 +254,8 @@ private _secondaryWeaponGroup = [_display, [
 	14.5 * GUI_GRID_W,
 	4.6 * GUI_GRID_H
 ], 103] call client_inventory_createControlsGroup;
-_secondaryWeaponGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_secondaryWeaponGroup setVariable ["containerObject", player];
+_secondaryWeaponGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_secondaryWeaponGroup setVariable			["containerObject", player];
 
 private _handgunWeaponGroup = [_display, [
 	26.5 * GUI_GRID_W,
@@ -262,8 +263,8 @@ private _handgunWeaponGroup = [_display, [
 	14.5 * GUI_GRID_W,
 	4.6 * GUI_GRID_H
 ], 104] call client_inventory_createControlsGroup;
-_handgunWeaponGroup ctrlAddEventHandler ["LBDrop", client_inventory_lbDrop];
-_handgunWeaponGroup setVariable ["containerObject", player];
+_handgunWeaponGroup ctrlAddEventHandler	["LBDrop", client_inventory_lbDrop];
+_handgunWeaponGroup setVariable			["containerObject", player];
 
 private _primaryWeaponControls 		= [_display, _primaryWeaponGroup, 6] call client_inventory_initWeapon;
 private _secondaryWeaponControls 	= [_display, _secondaryWeaponGroup, 5] call client_inventory_initWeapon;

@@ -22,12 +22,12 @@ if !([player] call client_utils_isAdmin) exitWith {};
 
 	private _vehicle = objectParent player;
 	if (_vehicle isKindOf 'Air') then {
-		_pos = [_pos # 0, _pos # 1, (getPosATL _vehicle) # 2];
+		_pos set [2, (getPosATL _vehicle) # 2];
 	};
-	_vehicle allowDamage false;
-	_vehicle SetVelocity [0,0,1];
-	_vehicle setPosATL _pos;
-	_vehicle allowDamage true;
+	_vehicle allowDamage	false;
+	_vehicle SetVelocity	[0,0,1];
+	_vehicle setPosATL		_pos;
+	_vehicle allowDamage	true;
 }];
 // Key Binds
 (findDisplay 46) displayAddEventHandler ["KeyDown", {
@@ -39,49 +39,41 @@ if !([player] call client_utils_isAdmin) exitWith {};
 		"_alt"
 	];
 
-	private _vehicle = vehicle player;
-	private _direction = getDir _vehicle;
-	private _velocity = velocity _vehicle;
-	private _position = getPosATL _vehicle;
-	private _target = [objectParent player, cursorObject] select (isNull objectParent player);
-	private _handled = false;
+	private _vehicle	= vehicle player;
+	private _direction	= getDir _vehicle;
+	private _velocity	= velocity _vehicle;
+	private _position	= getPosATL _vehicle;
+	private _target		= [_vehicle, cursorObject] select (isNull objectParent player);
+	private _distance	= 7;
+	private _handled	= false;
 	switch (_code) do {
 		// Shift + 4 (Admin Jump)
 		case 5: {
 			if !(_shift) exitWith {};
 
-			private _jumpVelocity = [
-				_velocity # 0,
-				_velocity # 1,
-				6
-			];
-			_vehicle setVelocity _jumpVelocity;
-			_handled = true
+			_velocity 	set[2, _distance];
+			_vehicle	setVelocity _velocity;
+			_handled	= true
 		};
 		// Shift + 5 (TP 7m forward)
 		case 6: {
 			if !(_shift) exitWith {};
 
-			private _distance = 7;
-			private _moveForvardPos = [
-				(_position # 0) + sin _direction * _distance,
-				(_position # 1) + cos _direction * _distance,
-				_position # 2
-			];
-			_vehicle setPosATL _moveForvardPos;
-			_handled = true
+			_position	set[0, (_position # 0) + sin _direction * _distance];
+			_position	set[1, (_position # 1) + cos _direction * _distance];
+
+			_vehicle	setPosATL _position;
+			_handled	= true
 		};
 		// Repair object (Shift + F)
 		case 33 : {
 			if !(_shift) exitWith {};
 			
-			if (isNull _target) then {
-				_target = player;
-			};
-			_target setDamage 0;
+			_target		= [_target, player] select (isNull _target);
+			_target		setDamage 0;
 			
 			[format["Вы починили %1", getText(configFile >> "CfgVehicles" >> typeOf _target >> "displayName")], "done"] call client_gui_hint;
-			_handled = true
+			_handled	= true
 		};
 		// Delete (Delete Object)
 		case 211 : {
@@ -89,7 +81,7 @@ if !([player] call client_utils_isAdmin) exitWith {};
 				
 			deleteVehicle _target;
 			[format["Вы удалили %1", getText(configFile >> "CfgVehicles" >> typeOf _target >> "displayName")], "done"] call client_gui_hint;
-			_handled = true
+			_handled	= true
 		};
 
 		default {};

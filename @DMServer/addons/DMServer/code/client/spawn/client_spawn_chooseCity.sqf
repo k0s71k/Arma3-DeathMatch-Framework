@@ -13,17 +13,17 @@ _display displayAddEventHandler ["KeyDown", {
 	false
 }];
 
-private _mainBackground = [0.1, 0.1, 0.1, 0.85];
-private _elementBackground = [0.15, 0.15, 0.15, 0.8];
+private _mainBackground		= [0.1, 0.1, 0.1, 0.85];
+private _elementBackground	= [0.15, 0.15, 0.15, 0.8];
 
 private _createControl = {
 	params [
-		["_display", displayNull, [displayNull]],
-		["_position", [0,0,0,0], [[]]],
-		["_class", "", [""]],
-		["_color", [0,0,0,0], [[]]],
-		["_inGroup", false, [false]],
-		["_controlsGroup", controlNull, [controlNull]]
+		["_display",		displayNull,[displayNull]],
+		["_position",		[0,0,0,0],	[[]]],
+		["_class",			"",			[""]],
+		["_color",			[0,0,0,0],	[[]]],
+		["_inGroup",		false,		[false]],
+		["_controlsGroup",	controlNull,[controlNull]]
 	];
 
 	private "_control";
@@ -145,27 +145,27 @@ private _addEvent = {
 // Добавляем все локации в таблицу
 lbClear _dmList;
 {
-	private _position = _x # 0;
-	private _name = _x # 1;
-	private _size = _x # 2;
-	private _angle = _x # 3;
-	_dmList lbAdd _name;
-	_dmList lbSetData [_forEachIndex, str [_position, _size, _angle]];
+	private _position	= _x # 0;
+	private _name		= _x # 1;
+	private _size		= _x # 2;
+	private _angle		= _x # 3;
+	_dmList lbAdd		_name;
+	_dmList lbSetData	[_forEachIndex, str [_position, _size, _angle]];
 } foreach DM_Locations;
 
 // Обновляем таблицу локаций пока существует созданный дисплей
 while {!isNull _display} do {
 	{
-		private _position = _x # 0;
-		private _name = _x # 1;
-		private _size = _x # 2;
-		private _angle = _x # 3;
-		private _playersCount = ({(position _x) inArea [_position, _size, _size, _angle, false]} count playableUnits);
+		private _position		= _x # 0;
+		private _name			= _x # 1;
+		private _size			= _x # 2;
+		private _angle			= _x # 3;
+		private _playersCount	= ({(position _x) inArea [_position, _size, _size, _angle, false]} count playableUnits);
 		_dmList lbSetTextRight [_forEachIndex, format["В зоне: %1", _playersCount]];
 
-		private _itemColor = [[0.95, 0.95, 0.95, 0.9], [0.6, 0.6, 0.2, 0.9]] select (_playersCount > 0);
-		_dmList lbSetColor [_forEachIndex, _itemColor];
-		_dmList lbSetColorRight [_forEachIndex, _itemColor]
+		private _itemColor		= [[0.95, 0.95, 0.95, 0.9], [0.6, 0.6, 0.2, 0.9]] select (_playersCount > 0);
+		_dmList lbSetColor		[_forEachIndex, _itemColor];
+		_dmList lbSetColorRight	[_forEachIndex, _itemColor]
 	} foreach DM_Locations;
 	uiSleep 0.3;
 };
